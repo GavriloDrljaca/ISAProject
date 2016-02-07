@@ -31,7 +31,9 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile 'org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.2.5.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-security:1.2.5.RELEASE'
     compile 'org.springframework.social:spring-social-google:1.0.0.RELEASE'
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile 'mysql:mysql-connector-java:5.1.36'
     compile 'org.imgscalr:imgscalr-lib:4.2'
 }
