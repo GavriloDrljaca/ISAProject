@@ -45,7 +45,8 @@ public class User {
     private boolean activated;
     
     private String registrationKey;
-
+    
+    private String email;
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -113,6 +114,30 @@ public class User {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public boolean isActivated() {
+		return activated;
+	}
+
+	public void setActivated(boolean activated) {
+		this.activated = activated;
+	}
+
+	public String getRegistrationKey() {
+		return registrationKey;
+	}
+
+	public void setRegistrationKey(String registrationKey) {
+		this.registrationKey = registrationKey;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
     
     

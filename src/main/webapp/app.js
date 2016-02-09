@@ -12,7 +12,8 @@ app.config(function($stateProvider, $urlRouterProvider, $translateProvider, $htt
             controller: 'login'
         });
 
-    $translateProvider.useSanitizeValueStrategy('sanitize');
+    //Ne radi UTF-8 sa ovim
+    //$translateProvider.useSanitizeValueStrategy('sanitize');
 
     $mdThemingProvider.theme('default')
         .primaryPalette('light-green')
