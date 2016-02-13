@@ -9,13 +9,24 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/home").permitAll()
-				.antMatchers("/login/loginUser").permitAll().and().formLogin()
-				.loginPage("/login").permitAll().and().logout().permitAll().and().csrf().disable();
+	private static final String LOGOUT_URL = "/logout";
+    private static final String SESSION_COOKIE = "JSESSIONID";
 
-	}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.formLogin().disable();
+        http.httpBasic().disable();
+        http.logout().logoutUrl(LOGOUT_URL).deleteCookies(SESSION_COOKIE);
+        http.rememberMe();
+        http.csrf().disable();
+    }
+	/*@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/", "/home").permitAll().antMatchers("/login/activateUser").permitAll()
+				.antMatchers("/login/loginUser").permitAll().and().formLogin().loginPage("/login").permitAll().and()
+				.logout().permitAll().and().csrf().disable();
+
+	}*/
 
 	/*
 	 * @Autowired public void configureGlobal(AuthenticationManagerBuilder auth)

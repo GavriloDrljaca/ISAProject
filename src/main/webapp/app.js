@@ -10,6 +10,27 @@ app.config(function($stateProvider, $urlRouterProvider, $translateProvider, $htt
             url: '/login',
             templateUrl: 'module/login.html',
             controller: 'login'
+        }).state('main', {
+            url: '/',
+            abstract: true,
+            templateUrl: 'module/main.html',
+            controller: 'main'
+        })
+
+        .state('main.restaurants', {
+            url: 'restaurants',
+            templateUrl: 'module/restaurants/list.html',
+            controller: 'restaurantsList'
+        })
+        .state('main.user', {
+            url: 'user',
+            templateUrl: 'module/user/userMain.html',
+            controller: 'userMain'
+        })
+        .state('main.friends', {
+            url: 'friends',
+            templateUrl: 'module/friends/friendsMain.html',
+            controller: 'friendsMain'
         });
 
     //Ne radi UTF-8 sa ovim

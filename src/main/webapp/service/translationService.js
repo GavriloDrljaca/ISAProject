@@ -22,7 +22,18 @@ translation.config(function ($translateProvider) {
         USERNAME_EXISTS: 'Username already exists. Choose another',
         PASSWORD_NOT_EQUAL: 'Password not equal',
         PASSWORD_NOT_EQUAL_MESSAGE: 'Please enter correct password',
-        OK: 'Ok'
+        OK: 'Ok',
+        ACTIVATE_PROFILE: "Activate your profile",
+        REGISTRATION_TOKEN: "Registarrtion token",
+        USER_ACTIVATED: "User activated",
+        USER_ACTIVATED_MESSAGE: "User successfully activated.",
+        TOKEN_NOT_VALID: "Registracioni token nije ispravan",
+        TOKEN_NOT_VALID_MESSAGE: "Registracioni token koji ste uneli nije ispravan. Proverite jos jednom vas mejl",
+        NO_USERNAME: "Ne postoji korisnik",
+        NO_USERNAME_MESSAGE:  "Korisnicko ime nije ispravno. Proverite jos jednom vas mejl",
+        USER_NOT_ACTIVATED: "Korisnik aktiviran",
+        USER_NOT_ACTIVATED_MESSAGE: "Korisnik nije aktiviran.Proverite vas mejl i aktivirajte korisnika.",
+        APP_TITLE: "EAT WITH FRIENDS"
     });
     $translateProvider.translations('srb', {
         
@@ -44,7 +55,18 @@ translation.config(function ($translateProvider) {
         USERNAME_EXISTS: 'Korisnicko ime vec postoji. Izaberite drugo.',
         PASSWORD_NOT_EQUAL: 'Ponovljena lozinka nije ispravna.',
         PASSWORD_NOT_EQUAL_MESSAGE: 'Ponovljena loznika nije ispravna. Molimo vas unesite ispravnu.',
-        OK: "U redu"
+        OK: "U redu",
+        ACTIVATE_PROFILE: "Aktiviraj nalog",
+        REGISTRATION_TOKEN: "Registracioni token",
+        USER_ACTIVATED: "Korisnik aktiviran",
+        USER_ACTIVATED_MESSAGE: "Korisnik uspesno aktiviran",
+        TOKEN_NOT_VALID: "Registracioni token nije ispravan",
+        TOKEN_NOT_VALID_MESSAGE: "Registracioni token koji ste uneli nije ispravan. Proverite jos jednom vas mejl",
+        NO_USERNAME: "Ne postoji korisnik",
+        NO_USERNAME_MESSAGE:  "Korisnicko ime nije ispravno. Proverite jos jednom vas mejl",
+        USER_NOT_ACTIVATED: "Korisnik aktiviran",
+        USER_NOT_ACTIVATED_MESSAGE: "Korisnik nije aktiviran.Proverite vas mejl i aktivirajte korisnika.",
+        APP_TITLE: "JEDITE SA PRIJATELJIMA"
         
     });
 

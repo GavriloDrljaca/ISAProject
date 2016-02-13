@@ -17,13 +17,17 @@
 					translate}}</div>
 			</div>
 			</md-input-container>
-			<md-button class="md-raised md-primary" ng-click="loginUser();" ng-disabled = "login.$invalid">{{'LOGIN'
-			| translate}}</md-button>
+			<md-button class="md-raised md-primary" ng-click="loginUser($event);"
+				ng-disabled="login.$invalid">{{'LOGIN' | translate}}</md-button>
 			<md-button class="md-raised" ng-click="registerForm();">{{'REGISTER'
-	| translate}}</md-button>
+			| translate}}</md-button>
+
+			<md-button class="md-raised "
+				ng-click="openActivationForm();">{{'ACTIVATE_PROFILE' |
+			translate}}</md-button>
 		</div>
 	</form>
-	
+
 	<form name="register" ng-show="showRegisterForm">
 		<div layout="column" flex="70">
 			<md-input-container flex> <label>{{'NAME'
@@ -34,8 +38,10 @@
 			</div>
 			</md-input-container>
 			<md-input-container flex> <label>{{'USERNAME'
-				| translate}}</label> <input required name="username" ng-model="user.username">
-			<div ng-messages="register.username.$error" ng-if="register.username.$dirty">
+				| translate}}</label> <input required name="username"
+				ng-model="user.username">
+			<div ng-messages="register.username.$error"
+				ng-if="register.username.$dirty">
 				<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
 					translate}}</div>
 				<div ng-message="userExists">{{'USERNAME_EXISTS' | translate}}</div>
@@ -58,7 +64,8 @@
 				ng-if="register.repeat_password.$dirty">
 				<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
 					translate}}</div>
-				 <span ng-if = "passNotEqual" role="alert">{{'PASSWORD_NOT_EQUAL' | translate}}</span>
+				<span ng-if="passNotEqual" role="alert">{{'PASSWORD_NOT_EQUAL'
+					| translate}}</span>
 			</div>
 			</md-input-container>
 
@@ -76,13 +83,47 @@
 					translate}}</div>
 			</div>
 			</md-input-container>
+
 		</div>
+
 		<div layout="row" , flex="70">
-			<md-button class="md-raised md-primary" ng-click="registerUser($event);" ng-disabled = "register.$invalid">{{'REGISTER'
+			<md-button class="md-raised md-primary"
+				ng-click="registerUser($event);" ng-disabled="register.$invalid">{{'REGISTER'
 			| translate}}</md-button>
 			<md-button class="md-raised md-primary" ng-click="cancelRegister();">{{'CANCEL'
 			| translate}}</md-button>
+
 		</div>
 	</form>
+	
+	
+			<form name="activate" ng-show="activationForm">
+				<md-input-container flex> <label>{{'USERNAME'
+					| translate}}</label> <input required name="username"
+					ng-model="activation.username">
+				<div ng-messages="activate.username.$error"
+					ng-if="activate.username.$dirty">
+					<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
+						translate}}</div>
+				</div>
+
+				<md-input-container flex> <label>{{'REGISTRATION_TOKEN'
+					| translate}}</label> <input required name="token"
+					ng-model="activation.token">
+				<div ng-messages="activate.token.$error"
+					ng-if="activate.token.$dirty">
+					<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
+						translate}}</div>
+				</div>
+				<div layout="row" , flex="100">
+
+					<md-button class="md-raised md-primary" ng-click="activateUser($event);" ng-disabled="activate.$invalid">{{'ACTIVATE_PROFILE'
+					| translate}}</md-button>
+
+					<md-button class="md-raised md-primary"
+						ng-click="cancelActivationForm();">{{'CANCEL' |
+					translate}}</md-button>
+				</div>
+			</form>
 
 </div>
