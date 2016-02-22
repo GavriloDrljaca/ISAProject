@@ -1,0 +1,29 @@
+<div ng-controller="userMain" ng-init = "init" >
+<md-content flex layout="column" class="container">
+    <!-- <md-toolbar class="md-primary md-hue-2 md-whiteframe-z1" layout="row" layout-align="space-around center">
+        <md-button class="md-icon-button" hide-gt-sm data-ng-click="toggleNavigation()">
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+    </md-toolbar> -->
+     <md-tabs class="md-primary" md-stretch-tabs="always" md-dynamic-height md-border-bottom>
+            <md-tab id="userBasicInfo">
+                <md-tab-label>{{'BASIC_INFO' | translate}}</md-tab-label>
+                <md-tab-body>
+                    <ng-include src="'module/user/userBasicInfo.html'"></ng-include>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="userReservations">
+                <md-tab-label>{{'RESERVATIONS' | translate}}</md-tab-label>
+                <md-tab-body>
+                    <ng-include src="'module/user/userReservations.html'"></ng-include>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="userVisits">
+                <md-tab-label>{{'VISITS' | translate}}</md-tab-label>
+                <md-tab-body>
+                    <ng-include src="'module/user/userVisits.html'"></ng-include>
+                </md-tab-body>
+            </md-tab>
+     </md-tabs>
+</md-content>
+</div>

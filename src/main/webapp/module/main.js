@@ -1,7 +1,7 @@
-app.controller('main', function($scope, $state, $mdUtil, $mdSidenav, userService){
+app.controller('main', function($scope, $state, $mdUtil, $mdSidenav, userService, loginService){
 
     $scope.init = function(){
-        userService.getProfile(function(response){
+        loginService.getProfile(function(response){
             $scope.user = response.data;
         }, function(){
             $state.transitionTo('login')
@@ -13,8 +13,7 @@ app.controller('main', function($scope, $state, $mdUtil, $mdSidenav, userService
     }, 200);
 
     $scope.logout = function(){
-        userService.logout()
-        gapi.auth.signOut();
+        loginService.logout()
         $state.transitionTo('login')
     };
 

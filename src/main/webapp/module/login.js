@@ -13,6 +13,7 @@ app.controller('login', function($scope, $state, $mdDialog, $translate, loginSer
 	$scope.activationForm = false;
     $scope.loginUser = function(ev){
         loginService.login ($scope.username, $scope.password, function(response){
+        	$scope.user = response.data;
             $state.transitionTo('main.user');
         }, function(response){
         	if(response.data === "BAD_PASSWORD"){

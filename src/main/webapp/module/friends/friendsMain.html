@@ -1,0 +1,155 @@
+<style>
+.icondemoFontIconsWithClassnames {
+  /* Bootstrap Overrides */
+  /* OLD STYLES */ }
+  .icondemoFontIconsWithClassnames .appDemoFontIconsWithClassnames {
+    padding: 25px;
+    width: 100%; }
+  .icondemoFontIconsWithClassnames .appDemoFontIconsWithClassnames,
+  .icondemoFontIconsWithClassnames .appDemoFontIconsWithClassnames *:before,
+  .icondemoFontIconsWithClassnames .appDemoFontIconsWithClassnames *:after {
+    box-sizing: border-box; }
+  .icondemoFontIconsWithClassnames [class^="icon-"]:before,
+  .icondemoFontIconsWithClassnames [class*=" icon-"]:before {
+    font-family: "icomoon";
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: inherit;
+    text-transform: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; }
+  .icondemoFontIconsWithClassnames .icon-home:before {
+    content: "\e900"; }
+  .icondemoFontIconsWithClassnames .icon-clock:before {
+    content: "\e94e"; }
+  .icondemoFontIconsWithClassnames .icon-user-plus:before {
+    content: "\e973"; }
+  .icondemoFontIconsWithClassnames .icon-google-plus2:before {
+    content: "\ea89"; }
+  .icondemoFontIconsWithClassnames .icon-youtube4:before {
+    content: "\ea9a"; }
+  .icondemoFontIconsWithClassnames .icon-settings:before {
+    content: "\e600"; }
+  .icondemoFontIconsWithClassnames md-progress-circular {
+    margin-bottom: 20px; }
+  .icondemoFontIconsWithClassnames header {
+    overflow: hidden; }
+  .icondemoFontIconsWithClassnames header h1 {
+    color: #888;
+    font-size: 36px;
+    font-weight: 300; }
+  .icondemoFontIconsWithClassnames .container {
+    margin: 0 auto;
+    max-width: 1200px;
+    min-width: 960px;
+    padding: 40px 40px;
+    font: 14px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  .icondemoFontIconsWithClassnames .glyph {
+    border-bottom: 1px dotted #ccc;
+    padding: 10px 0 20px;
+    margin-bottom: 20px; }
+  .icondemoFontIconsWithClassnames .preview-scale,
+  .icondemoFontIconsWithClassnames .preview-glyphs {
+    display: flex;
+    flex-direction: row; }
+  .icondemoFontIconsWithClassnames .preview-scale {
+    color: #888;
+    font-size: 12px;
+    margin-top: 24px; }
+  .icondemoFontIconsWithClassnames .step {
+    flex-grow: 1;
+    line-height: 0.5; }
+  .icondemoFontIconsWithClassnames .usage {
+    margin-top: 10px; }
+  .icondemoFontIconsWithClassnames .usage input {
+    font-family: monospace;
+    text-align: center; }
+  .icondemoFontIconsWithClassnames .usage .point {
+    width: 150px; }
+  .icondemoFontIconsWithClassnames .usage .class {
+    width: 250px; }
+  .icondemoFontIconsWithClassnames md-radio-button {
+    display: inline-block; }
+  .icondemoFontIconsWithClassnames .loading {
+    background-color: black;
+    filter: alpha(opacity=40);
+    height: 100%;
+    left: 0;
+    opacity: .40;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 90; }
+  .icondemoFontIconsWithClassnames .loading md-progress-circular {
+    left: 50%;
+    position: fixed;
+    top: 48%;
+    z-index: 100; }
+
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
+*/
+
+</style>
+
+<md-content  ng-init="init()" flex layout="column" class="container">
+    <md-content class="frame" layout="column" layout-align="start center" layout-padding flex>
+        <div class="container">
+
+            <md-card ng-init="init()">
+                <md-card-content>
+                    <md-list>
+                        <md-list-item ng-repeat="friend in user.friends" ng-click="openDetails(friend)" ng-show="user.friends.length > 0">
+                            <p> {{ friend.name }} </p>
+                            <md-icon class="material-icons" ng-click="deleteFriend(friend, $event)">clear</md-icon>
+                            <md-divider></md-divider>
+                        </md-list-item>
+                        <md-list-item ng-show="user.friends.length === 0"> <label>{{ "NO_FRIENDS_FOUND" | translate}}</label></md-list-item>
+                    </md-list>
+                </md-card-content>
+            </md-card>
+            <md-button class = "md-priamry md-raised" ng-click ="openAddNewFriend()">
+            {{'ADD_NEW_FRIEND' | translate}}
+            </md-button>
+            
+           <!--  <md-button class="md-fab md-fab-bottom-right fixed" aria-label="Add" data-ng-click="addNewFriend()">
+                <md-icon class="material-icons">add</md-icon>
+            </md-button> -->
+        </div>
+        
+        
+        <div class="container" ng-show= "newFriendsList">
+
+            <md-card ng-init="init()">
+                <md-card-content>
+                    <md-list>
+                        <md-list-item ng-repeat="nonFriend in nonFriends" ng-click="openDetails(nonFriend, $event)" ng-show="nonFriends.length > 0">
+                            <p> {{ nonFriend.name }} </p>
+                              <div class="preview-glyphs">
+                             <md-icon class="material-icons" ng-click="addNewFriend(nonFriend, $event)">accessibility</md-icon>
+							</div>	
+<!--                         	<div class="preview-glyphs">
+                          <md-icon md-font-icon="{{ font.name }}" ng-style="{color: !font.theme && font.color, 'font-size': 36 + 'px', height: 36 + 'px'}" ng-class="font.theme" aria-label="{{ font.name + 36 }}" class="step "></md-icon>    
+ 							</div>
+ --> 							<md-divider></md-divider>
+                        </md-list-item>
+                        <md-list-item ng-show="nonFriends.length === 0"> <label>{{ "NO_NON_FRIENDS_FOUND" | translate}}</label></md-list-item>
+                    </md-list>
+                </md-card-content>
+            </md-card>
+            
+            
+            
+            
+           <!--  <md-button class="md-fab md-fab-bottom-right fixed" aria-label="Add" data-ng-click="addNewFriend()">
+                <md-icon class="material-icons">add</md-icon>
+            </md-button> -->
+        </div>
+    </md-content>
+</md-content>

@@ -33,7 +33,28 @@ translation.config(function ($translateProvider) {
         NO_USERNAME_MESSAGE:  "Korisnicko ime nije ispravno. Proverite jos jednom vas mejl",
         USER_NOT_ACTIVATED: "Korisnik aktiviran",
         USER_NOT_ACTIVATED_MESSAGE: "Korisnik nije aktiviran.Proverite vas mejl i aktivirajte korisnika.",
-        APP_TITLE: "EAT WITH FRIENDS"
+        APP_TITLE: "EAT WITH FRIENDS",
+        NO_RESTARUANTS_FOUND: "Nema pronadjenih restorana.",
+        MENU: "Jelovnik",
+        RESERVATION: "Rezervacija",
+        INFO_RESTAURANT: "O restoranu",
+        NO_JELO_FOUND: "Ne postoje jela u jelovniku ovog restorana",
+        ADD_NEW_JELO:  "Dodaj novo jelo",
+        ABOUT: "Opis",
+        PRICE: "Cena",
+        ADD: "ADD",
+        BASIC_INFO: "Osnovne informacije",
+        RESERVATIONS: "Rezervacije",
+        VISITS: "Posete",
+        PHONE_NUMBER: "Broj telefona",
+        ADDRESS: "Adresa",
+        ADD_NEW_FRIEND: "Dodaj novog prijatelja",
+        NO_NON_FRIENDS_FOUND: "Ne postoje korisnici koji vam nisu prijatelji",
+        FRIENDS: "Prijatelji",
+        RESTOURANTS: "Restorani",
+        USER: "Korisnik",
+        NO_FRIENDS_FOUND: "User has no friends"
+
     });
     $translateProvider.translations('srb', {
         
@@ -66,7 +87,30 @@ translation.config(function ($translateProvider) {
         NO_USERNAME_MESSAGE:  "Korisnicko ime nije ispravno. Proverite jos jednom vas mejl",
         USER_NOT_ACTIVATED: "Korisnik aktiviran",
         USER_NOT_ACTIVATED_MESSAGE: "Korisnik nije aktiviran.Proverite vas mejl i aktivirajte korisnika.",
-        APP_TITLE: "JEDITE SA PRIJATELJIMA"
+        APP_TITLE: "JEDITE SA PRIJATELJIMA",
+        NO_RESTARUANTS_FOUND: "Nema pronadjenih restorana.",
+        MENU: "Jelovnik",
+        RESERVATION: "Rezervacija",
+        INFO_RESTAURANT: "O restoranu",
+        NO_JELO_FOUND: "Ne postoje jela u jelovniku ovog restorana",
+        ADD_NEW_JELO:  "Dodaj novo jelo",
+        ABOUT: "Opis",
+        PRICE: "Cena",
+        ADD: "Dodaj",
+        BASIC_INFO: "Osnovne informacije",
+        RESERVATIONS: "Rezervacije",
+        VISITS: "Posete",
+        PHONE_NUMBER: "Broj telefona",
+        ADDRESS: "Adresa",
+        ADD_NEW_FRIEND: "Dodaj novog prijatelja",
+        NO_NON_FRIENDS_FOUND: "Ne postoje korisnici koji vam nisu prijatelji",
+        FRIENDS: "Prijatelji",
+        RESTOURANTS: "Restorani",
+        USER: "Korisnik",
+        NO_FRIENDS_FOUND: "Korisnik jos nije dodao prijatelje",
+        true: "DA",
+        false: "NE"
+        
         
     });
 

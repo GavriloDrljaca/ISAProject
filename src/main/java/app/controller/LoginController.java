@@ -30,58 +30,56 @@ import app.services.SmtpMailSender;
 @RestController
 @RequestMapping("/login")
 public class LoginController {
-	
+
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
 	private SmtpMailSender smtpMailSender;
 	private SecureRandom random = new SecureRandom();
 
-	
-	@RequestMapping(method = RequestMethod.POST, value = "/loginUser/{username}/{password}", produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity login(@PathVariable("username") String username, @PathVariable("password") String password){
-	
+	@RequestMapping(method = RequestMethod.POST, value = "/loginUser/{username}/{password}", produces = MediaType.ALL_VALUE)
+	public ResponseEntity login(@PathVariable("username") String username, @PathVariable("password") String password) {
+
 		System.out.println("user:" + username);
 		User userTry = userRepository.findByUsername(username);
-		
-		if(userTry==null){
+
+		if (userTry == null) {
 
 			return new ResponseEntity("NO_USER", HttpStatus.BAD_REQUEST);
-		}else{
-			if(userTry.getPassword().equals(password)){
-				if(!userTry.isActivated()){
+		} else {
+			if (userTry.getPassword().equals(password)) {
+				if (!userTry.isActivated()) {
 					return new ResponseEntity("USER_NOT_ACTIVATED", HttpStatus.BAD_REQUEST);
 				}
-					final Collection<GrantedAuthority> authorities = new ArrayList<>();
-					authorities.add(new SimpleGrantedAuthority(userTry.getRole().name()));
-					final Authentication authentication = new PreAuthenticatedAuthenticationToken(userTry, null, authorities);
-					SecurityContextHolder.getContext().setAuthentication(authentication);
-					
-					return new ResponseEntity(HttpStatus.OK);
-			}else{
+				final Collection<GrantedAuthority> authorities = new ArrayList<>();
+				authorities.add(new SimpleGrantedAuthority(userTry.getRole().name()));
+				final Authentication authentication = new PreAuthenticatedAuthenticationToken(userTry, null,
+						authorities);
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+
+				return new ResponseEntity(userTry, HttpStatus.OK);
+			} else {
 				return new ResponseEntity("BAD_PASSWORD", HttpStatus.BAD_REQUEST);
 			}
 		}
 	}
+
 	@RequestMapping(method = RequestMethod.POST, value = "/registerUser", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity registerUser(@RequestBody User user){
 		if(userRepository.findByUsername(user.getUsername()) !=null){
 			return new ResponseEntity("USER_EXISTS", HttpStatus.BAD_REQUEST);
 		}
 		
-		//TODO 2
-		/*
-		 * if username is unique (new) generate token and send email with activation link
-		 */
 		//Generate token
 		String token = new BigInteger(130, random).toString(32);
 		user.setActivated(false);
 		user.setRegistrationKey(token);
 		
 		try {
-			smtpMailSender.send(user.getEmail(), "ISA restoran activation link", "Copy link to browser : localhost:8080/#/login/activateUser/"+user.getUsername()+"/"+user.getRegistrationKey()+" "
-					+ " to activate your profile!");
-			
+			smtpMailSender.send(user.getEmail(), "ISA restoran activation link", "Dear, "+user.getName()
+			+", please activate your account with username: "+user.getUsername()+
+			" and token: "+user.getRegistrationKey() 
+			+" .Thank you for your cooperation.");			
 			userRepository.save(user);
 			return new ResponseEntity(HttpStatus.CREATED);
 		} catch (MessagingException e) {
@@ -92,32 +90,29 @@ public class LoginController {
 		
 		
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "/activateUser/{username}/{activationToken}", produces = MediaType.TEXT_PLAIN_VALUE)
-	//@RequestMapping(method = RequestMethod.POST, value = "/activateUser/")
-	public ResponseEntity activateUser(@PathVariable("username") String username, @PathVariable("activationToken") String token){
+	public ResponseEntity activateUser(@PathVariable("username") String username,
+			@PathVariable("activationToken") String token) {
 		User foundUser = userRepository.findByUsername(username);
-		
-		if(foundUser == null){
+
+		if (foundUser == null) {
 			return new ResponseEntity("NO_USERNAME", HttpStatus.BAD_REQUEST);
 		}
-		
-		if(!foundUser.getRegistrationKey().equals(token)){
+
+		if (!foundUser.getRegistrationKey().equals(token)) {
 			return new ResponseEntity("INVALID_TOKEN", HttpStatus.BAD_REQUEST);
 		}
-		
+
 		foundUser.setActivated(true);
 		userRepository.save(foundUser);
-		
-		System.out.println("**************************************");
-		
 		return new ResponseEntity("USER_ACTIVATED", HttpStatus.OK);
 	}
-	
+
 	@PreAuthorize("isAuthenticated()")
-    @RequestMapping(method = RequestMethod.GET, value = "/me")
-    public ResponseEntity getProfile(){
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return new ResponseEntity<>(authentication.getPrincipal(), HttpStatus.OK);
-    }
+	@RequestMapping(method = RequestMethod.GET, value = "/me")
+	public ResponseEntity getProfile() {
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return new ResponseEntity<>(authentication.getPrincipal(), HttpStatus.OK);
+	}
 }

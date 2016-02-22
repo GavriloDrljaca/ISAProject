@@ -1,0 +1,31 @@
+<md-content flex layout="column" class="container">
+    <md-toolbar class="md-primary md-hue-2 md-whiteframe-z1" layout="row" layout-align="space-around center">
+        <md-button class="md-icon-button" hide-gt-sm data-ng-click="toggleNavigation()">
+            <md-icon class="material-icons">menu</md-icon>
+        </md-button>
+        <md-input-container md-no-float flex-gt-lg="40">
+            <input class="search" ng-model="search.name" placeholder="Search">
+        </md-input-container>
+        <div hide-gt-sm></div>
+    </md-toolbar>
+    <md-content class="frame" layout="column" layout-align="start center" layout-padding flex>
+        <div class="container">
+
+            <md-card ng-init="init()">
+                <md-card-content>
+                    <md-list>
+                        <md-list-item ng-repeat="restaurant in restaurants" ng-click="openDetails(restaurant)" ng-show="restaurants.length > 0">
+                            <p> {{ restaurant.naziv }} </p>
+                            <md-icon class="material-icons" ng-click="deleteRestaurant(restaurant, $event)">clear</md-icon>
+                            <md-divider></md-divider>
+                        </md-list-item>
+                        <md-list-item ng-show="restaurants.length === 0"> <label>{{ "NO_RESTARUANTS_FOUND" | translate}}</label></md-list-item>
+                    </md-list>
+                </md-card-content>
+            </md-card>
+            <md-button class="md-fab md-fab-bottom-right fixed" aria-label="Add" data-ng-click="addNewRestaurant()">
+                <md-icon class="material-icons">add</md-icon>
+            </md-button>
+        </div>
+    </md-content>
+</md-content>

@@ -1,13 +1,13 @@
+
 <div ng-init="init()" layout="row">
     <md-sidenav class="md-sidenav-left md-whiteframe-z2 md-primary" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" flex>
         <h2>
             <span class="md-padding">{{'APP_TITLE' | translate}}</span>
         </h2>
         <md-list layout="column" flex>
-            <md-button class="nav-option" ui-sref-active="active" ui-sref="main.employees">{{'RESTOURANT' | translate}}</md-button>
-            <md-button class="nav-option" ui-sref-active="active" ui-sref="main.projects">{{'PROJECTS' | translate}}</md-button>
-            <md-button class="nav-option" ui-sref-active="active" ui-sref="main.analysis">{{'ANALYSIS' | translate}}</md-button>
-            <md-button class="nav-option" ui-sref-active="active" ui-sref="main.tagsOverview">{{'TAGS_OVERVIEW' | translate}}</md-button>
+            <md-button class="nav-option" ui-sref-active="active" ui-sref="main.restaurants">{{'RESTOURANTS' | translate}}</md-button>
+            <md-button class="nav-option" ui-sref-active="active" ui-sref="main.user">{{'USER' | translate}}</md-button>
+            <md-button class="nav-option" ui-sref-active="active" ui-sref="main.friends">{{'FRIENDS' | translate}}</md-button>
             <div flex></div>
             <md-button class="nav-option" data-ng-click="logout()">{{'LOGOUT' | translate}}</md-button>
         </md-list>

@@ -1,6 +1,7 @@
-var app = angular.module('app', ['ui.router', 'ngSanitize', 'ngMessages', 'ngMaterial', 'translation', 'flow']);
+var app = angular.module('app', ['ui.router', 'ngSanitize', 'ngMessages', 'ngMaterial', 'translation', 'flow', 'scDateTime']);
 
 app.constant('GENDERS', ['MALE', 'FEMALE']);
+app.constant('POSETA_STATUS', ['PRIHVACENO', 'ODBIJENO', 'NEODLUCENO'])
 
 app.config(function($stateProvider, $urlRouterProvider, $translateProvider, $httpProvider, $mdThemingProvider, $mdDateLocaleProvider){
 

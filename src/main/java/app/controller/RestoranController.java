@@ -1,5 +1,6 @@
 package app.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.model.Jelo;
 import app.model.Restoran;
+import app.model.Sto;
 import app.repository.JeloRepository;
 import app.repository.RestoranRepository;
+import app.repository.StoRepository;
 
 @RestController
-@RequestMapping("/restorani")
+@RequestMapping("/restaurants")
 public class RestoranController {
 
 	@Autowired
@@ -26,6 +29,9 @@ public class RestoranController {
 	
 	@Autowired
 	JeloRepository jeloRepository;
+	
+	@Autowired
+	StoRepository stoRepository;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity getRestorani(){
@@ -38,6 +44,13 @@ public class RestoranController {
         restoran.setJelovnik(jelovnik);
 
         restoranRepository.save(restoran);
+        final Set<Jelo> updatedJelovnik = restoran.getJelovnik();
+		updatedJelovnik.forEach(jelo-> jelo.setRestoran(restoran));
+		jeloRepository.save(updatedJelovnik);
+		
+		final Set<Sto> updateStolovi = restoran.getStolovi();
+		updateStolovi.forEach(sto-> sto.setRestoran(restoran));
+		stoRepository.save(updateStolovi);
         return new ResponseEntity<>(restoran.getId(), HttpStatus.CREATED);
     }
 	
@@ -48,9 +61,43 @@ public class RestoranController {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 		
+		
+		
+		final Set<Jelo> updatedJelovnik = update.getJelovnik();
+		updatedJelovnik.forEach(jelo-> jelo.setRestoran(restoran));
+		jeloRepository.save(updatedJelovnik);
+		
+		final Set<Sto> updateStolovi = update.getStolovi();
+		updateStolovi.forEach(sto-> sto.setRestoran(restoran));
+		stoRepository.save(updateStolovi);
+		
 		restoranRepository.save(update);
+		return new ResponseEntity(HttpStatus.OK);
+		
+	}
+	@RequestMapping(method = RequestMethod.DELETE, value = "/jelo/{id}")
+	public ResponseEntity deleteJelo(@PathVariable("id") int id){
+		Jelo jelo = jeloRepository.findOne(id);
+		jeloRepository.delete(jelo);
 		
 		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/createTables/{id}")
+	public ResponseEntity createTables(@PathVariable("id") int id, @RequestBody ArrayList<Sto> stolovi){
+		Restoran r = restoranRepository.findOne(id);
+		
+		if(r==null){
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		
+		stolovi.forEach(sto->sto.setRestoran(r));
+		stoRepository.save(stolovi);
+		restoranRepository.save(r);
+		
+		
+		return new ResponseEntity(HttpStatus.OK);
+		
 		
 	}
 	
