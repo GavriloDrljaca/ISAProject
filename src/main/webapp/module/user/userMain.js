@@ -23,7 +23,7 @@ app.controller('userMain', function($scope, $state, $mdDialog, $translate, userS
 				}
 			})
 		}
-		
+		$scope.uploader = {};
 		$scope.genders = GENDERS;
 		$scope.posetaStatus = POSETA_STATUS;
 		
@@ -48,12 +48,29 @@ app.controller('userMain', function($scope, $state, $mdDialog, $translate, userS
 			if(response.data){
 				$scope.user.posete = response.data;
 			}
+			var date = new Date();
+			$scope.pastVisits = [];
+			$scope.futureVisits = [];
 			angular.forEach($scope.user.posete, function(poseta){
 				poseta.rezervacija.datetime = new Date(poseta.rezervacija.vreme);
+			
+				if(poseta.rezervacija.datetime<date){
+					if(poseta.status.toLowerCase() == "prihvaceno"){
+						$scope.pastVisits.push(poseta);
+					}
+					
+				}else{
+					if(poseta.rezervacija.user.id != $scope.user.id){
+						$scope.futureVisits.push(poseta);
+					}
+					
+				}
 			})
 		})
 	}
 	$scope.save = function(){
+		$scope.uploader.flow.opts.target = "/users/" + $scope.user.id + "/image";
+        $scope.uploader.flow.upload();
 		userService.updateUser($scope.user, function(response){
 			console.log($scope.user);
 		})
@@ -79,4 +96,34 @@ app.controller('userMain', function($scope, $state, $mdDialog, $translate, userS
 		ev.preventDefault();
 	    ev.stopPropagation();
 	}
+	$scope.openDetailsP = function(poseta, ev){
+		$mdDialog.show({
+	          controller: 'posetaDetails',
+	          templateUrl: 'module/user/posetaDetails.html',
+	          poseta: poseta,
+	          clickOutsideToClose: true
+	       });
+		
+	}
+	
+	$scope.openDetailsRez = function(rezervacija){
+		$mdDialog.show({
+	          controller: 'rezervacijaDetails',
+	          templateUrl: 'module/user/rezervacijaDetails.html',
+	          rezervacija: rezervacija,
+	          clickOutsideToClose: true
+	       }).then(function(){
+	    	   loadReservations();
+	       });
+	}
+	
+	$scope.getImageUrl = function(){
+        if ($scope.user.photoUrl){
+            return $scope.user.photoUrl
+        } else if ($scope.user.gender === 'MALE'){
+            return '/images/male-placeholder.jpg'
+        } else {
+            return '/images/female-placeholder.jpg'
+        }
+    };
 });

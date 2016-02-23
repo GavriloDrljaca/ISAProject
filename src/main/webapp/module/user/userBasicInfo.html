@@ -1,0 +1,78 @@
+<form name="details">
+<div ng-controller="userMain" ng-init="init()" layout="row"  ng-cloak layout-padding>
+<md-content flex layout="column" class="frame">
+
+	<div layout = "row">
+    <div layout="column" flex="100 100" layout-align ="left" style = "positon: absolute; width:100%">
+        	<md-input-container flex style = "positon: absolute; width:75%">
+        	 <label>{{'NAME'
+				| translate}}</label> <input required name="name" ng-model="user.name">
+			<div ng-messages="details.name.$error" ng-if="details.name.$dirty">
+				<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
+					translate}}</div>
+			</div>
+			</md-input-container style = "positon: absolute; width:75%">
+			<md-input-container flex style = "positon: absolute; width:75%"> <label>{{'USERNAME'
+				| translate}}</label> <input readonly required name="username"
+				ng-model="user.username">
+			<div ng-messages="details.username.$error"
+				ng-if="details.username.$dirty">
+				<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
+					translate}}</div>
+				<div ng-message="userExists">{{'USERNAME_EXISTS' | translate}}</div>
+			</div>
+			</md-input-container>
+			
+			<md-input-container style = "positon: absolute; width:75%" ng-if = "user.role ==='MENADZER_RESTORANA'" flex> <label>{{'RESTAURANT_MANAGER'
+				| translate}}</label> <input readonly name="restMan" ng-model="user.restoran.naziv"
+				type="text">
+			</md-input-container>
+			
+			<md-input-container flex style = "positon: absolute; width:75%"> <label>{{'PASSWORD'
+				| translate}}</label> <input required name="password"
+				ng-model="user.password" type="password">
+			<div ng-messages="details.password.$error"
+				ng-if="details.password.$dirty">
+				<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
+					translate}}</div>
+			</div>
+			</md-input-container style = "positon: absolute; width:75%">
+			<md-input-container flex style = "positon: absolute; width:75%"> <label>{{'GENDER'
+				| translate}}</label> <md-select ng-model="user.gender"> <md-option
+				ng-repeat="gender in genders" value="{{gender}}">{{gender
+			| translate}}</md-option> </md-select> </md-input-container>
+
+			<md-input-container flex style = "positon: absolute; width:75%"> <label>{{'EMAIL_ADDRESS'
+				| translate}}</label> <input required name="email" ng-model="user.email"
+				type="email">
+			<div ng-messages="details.email.$error"
+				ng-if="details.email.$dirty">
+				<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
+					translate}}</div>
+			</div>
+			</md-input-container >
+			<md-input-container flex style = "positon: absolute; width:75%"> <label>{{'ADDRESS'
+				| translate}}</label> <input name="address" ng-model="user.address"
+				type="text">
+			</md-input-container>
+			<md-input-container flex style = "positon: absolute; width:75%"> <label>{{'PHONE_NUMBER'
+				| translate}}</label> <input name="phoneNumber" ng-model="user.phoneNumber"
+				type="text" phone-input>
+			</md-input-container>
+   
+    <div layout = "row">
+    <md-dialog-actions class =  "cancelSaveCv" >
+        <md-button class = "md-primary" ng-click="cancel()">{{'CANCEL' | translate}}</md-button>
+        <md-button class = "md-primary" ng-click="save()" ng-disabled="details.$invalid">{{'SAVE' | translate}}</md-button>
+    </md-dialog-actions>
+    </div>
+	</div>
+    <div class="user-image" flow-init="{singleFile:true, testChunks:false}" flow-name="uploader.flow" flex="30" layout-align =" right">
+        <img height="300" width="300" ng-src="{{getImageUrl()}}" flow-img="$flow.files[0]" flow-btn/>
+    </div>
+    </div>
+ 
+ </md-content>
+</div>
+
+</form>

@@ -1,0 +1,14 @@
+<div class="frame">
+
+            <md-card ng-init="init()">
+                <md-card-content>
+                    <md-list>
+                        <md-list-item ng-repeat="friend in user.friends" ng-click="openDetails(friend)" ng-show="user.friends.length > 0">
+                            <p> {{ friend.name }} </p>
+                            <md-divider></md-divider>
+                        </md-list-item>
+                        <md-list-item ng-show="user.friends.length === 0"> <label>{{ "NO_FRIENDS_FOUND" | translate}}</label></md-list-item>
+                    </md-list>
+                </md-card-content>
+            </md-card>
+        </div>

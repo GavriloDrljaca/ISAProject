@@ -1,0 +1,86 @@
+ <style>
+ md-dialog {
+       height:80%;
+       width:60%;
+       max-height:100%;
+       max-width: 100%;
+       position: relative;
+       top: 10;
+       left: 10;
+       right: 10;
+       down: 10;
+       border-radius: 5;
+   }
+   
+ md-dialog-actions.cancelSaveCv{
+ 	position: absolute;
+ 	bottom : 0;
+ 	right : 0;
+ }
+ </style>
+<md-dialog data-ng-init="init()">
+<md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>REZERVACIJA</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+    <div class="md-dialog-content">
+        <div layout="column" flex >
+    		<md-input-container flex> <label>{{'RESTORAN'
+				| translate}}</label> <input  name="restoranName" ng-model="rezervacija.restoran.naziv" readonly>
+			</md-input-container>
+			<md-input-container flex> <label>{{'REZERVISAO'
+				| translate}}</label> <input  name="userName" ng-model="rezervacija.user.name" readonly>
+			</md-input-container>
+			<md-input-container flex> <label>{{'TRAJANJE'
+				| translate}}</label> <input  name="trajanje" ng-model="rezervacija.trajanje" readonly>
+			</md-input-container>
+			
+			<label>Vreme:</label> 
+  			<input type="datetime-local" ng-model = "rezervacija.datetime" readonly>
+  			<md-card layout = "row" >
+			   <md-subheader class="md-no-sticky">Rezervisani stolovi:</md-subheader>
+					<md-card-item  ng-repeat = "sto in rezervacija.stolovi">
+				          <md-input-container flex>
+            			<label>{{'BROJ_MESTA' | translate}}</label>
+            			<input ng-readonly = "true" required min = "1" name="brojKolona" ng-model="sto.brojStolova" type="number"></input>
+        			</md-input-container>
+        			<md-input-container flex>
+            			<label>{{'BROJ_STOLA' | translate}}</label>
+            			<input ng-readonly = "true" required min = "1" name="brojStola" ng-model="sto.redniBroj" type="number"></input>
+        			</md-input-container>
+				</md-card-item>
+			</md-card>
+			<md-card layout = "column" >
+			   <md-subheader class="md-no-sticky">POSETE/POZIVNICE:</md-subheader>
+					<md-card-item  ng-repeat = "poseta in rezervacija.posete">
+				          <md-input-container flex>
+            			<label>{{'POZVANI_KORISNIK' | translate}}</label>
+            			<input ng-readonly = "true" required min = "1" name="" ng-model="poseta.user.name" type="text"></input>
+        			</md-input-container>
+        			<md-input-container flex> <label>{{'STATUS POSETE'
+						| translate}}</label> <md-select ng-disabled = "true" ng-model="poseta.status">
+						 <md-option ng-repeat="posetaSt in posetaStatusi" value="{{posetaSt}}">
+						 {{posetaSt | translate}}</md-option> 
+						</md-select> 
+					</md-input-container>
+					<md-input-container flex>
+            			<label>{{'OCENA' | translate}}</label>
+            			<input ng-readonly = "true" required min = "1" name="brojStola" ng-model="poseta.ocena" type="number"></input>
+        			</md-input-container>
+			        <md-input-container flex> <label>{{'KOMENTAR'
+							| translate}}</label> <textarea readonly ng-model="poseta.komentar"></textarea>
+					</md-input-container>
+				</md-card-item>
+			</md-card>
+  			<md-divider></md-divider>
+  		</div>
+	</div> 
+    </md-dialog-content>
+    <md-dialog-actions >
+    	    <md-button class ="md-primary md-raised" ng-click="cancel()">{{'CANCEL' | translate}}</md-button>
+    	    <md-button ng-disabled = "rezervacija.datetime<date" class ="md-primary md-raised" ng-click="deleteRez()">{{'DELETE' | translate}}</md-button>
+	 </md-dialog-actions>
+</md-dialog>

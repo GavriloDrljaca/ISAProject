@@ -1,0 +1,32 @@
+<form>
+<div class = "frame" layout="row"  ng-cloak layout-padding>
+
+    <div layout="column" flex="70">
+        <md-input-container flex> <label>{{'NAME'
+				| translate}}</label> <input required name="name" ng-model="user.name" ng-disabled = "true">
+			</md-input-container>
+			<md-input-container flex> <label>{{'GENDER'
+				| translate}}</label> <md-select ng-model="user.gender" ng-disabled = "true" > <md-option
+				ng-repeat="gender in genders" value="{{gender}}">{{gender
+			| translate}}</md-option> </md-select> </md-input-container>
+
+			<md-input-container flex> <label>{{'EMAIL_ADDRESS'
+				| translate}}</label> <input required name="email" ng-model="user.email"
+				type="text" ng-disabled = "true">
+			</md-input-container>
+			<md-input-container flex> <label>{{'ADDRESS'
+				| translate}}</label> <input name="address" ng-model="user.address"
+				type="tex" ng-disabled = "true">
+			</md-input-container>
+			<md-input-container flex> <label>{{'PHONE_NUMBER'
+				| translate}}</label> <input name="phoneNumber" ng-model="user.phoneNumber"
+				type="text" ng-disabled = "true" phone-input>
+			</md-input-container>
+		</div>
+		
+		<div class="user-image" flow-init="{singleFile:true, testChunks:false}" flow-name="uploader.flow" flex="30" layout-align =" right">
+        	<img height="220" width="200" ng-src="{{getImageUrl()}}" flow-img="$flow.files[0]" flow-btn/>
+   	 	</div>
+	</div>
+
+</form>

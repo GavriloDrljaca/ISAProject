@@ -1,0 +1,141 @@
+<style>
+.time-date {
+		    font-size: 12px !important;
+		}
+</style>
+<div ng-controller = "restaurantReservation" ng-init = "init()" layout = "row" layout-padding>
+	<div ng-show = "user.role == 'GOST'">
+	<div layout = "column", flex = "100" ng-hide = "chooseTable || successfulReservation || nonSuccessfulReservation">
+            
+			<p>Izaberi datum i vreme rezervacije</p>
+			<input type="datetime-local" ng-model = "rezervacija.vreme" min = "{{date | date:'yyyy-MM-ddTHH:mm:ss'}}">
+			<!-- <time-date-picker min = "date" ng-model="rezervacija.vreme" data-display-mode="full" orientation="{{vertmode}}" class="modal-content"></time-date-picker> -->
+            
+        <md-input-container flex>
+            <label>{{'TRAJANJE' | translate}}</label>
+            <input name="duration" ng-model="rezervacija.trajanje" type="number" step = "0.5" min = "0.5"></input>
+        </md-input-container>
+        
+        <md-button class =  "md-primary md-raised" ng-click = "proceed()">{{'NASTAVI' | translate}}</md-button>
+	</div>
+	
+	<div layout = "column", flex = "100", ng-show = "chooseTable && !successfulReservation && !nonSuccessfulReservation ">
+	
+		<md-button class = "md-primary md-raised" ng-click = "nazadNaIzborVremena()">Nazad na izbor vremena </md-button>
+		<table width = "85%">
+		  <caption>{{'STOLOVI' | translate}}</caption>
+		
+		  <tr ng-repeat="red in getNumber(restaurant.brojRedova)">
+		    <td ng-repeat="kolona in getNumber(restaurant.brojKolona)">
+		    	<div ng-if = "restaurant.stolovi[(red-1) * restaurant.brojKolona + kolona -1].dostupan">
+			    <md-card  ng-click = "tableDetails();" flex = "75 75">
+	                <md-card-content>
+	                <md-checkbox ng-disabled = "true" ng-model="restaurant.stolovi[(red-1) * restaurant.brojKolona + kolona -1].pusacki" aria-label="Sto za pusace">
+            		Sto za pusace
+          			</md-checkbox>
+          			<md-checkbox ng-disabled = "true" ng-model="restaurant.stolovi[(red-1) * restaurant.brojKolona + kolona -1].dostupan" aria-label="Sto za pusace">
+            		Dostupan
+          			</md-checkbox>
+          			<md-checkbox ng-disabled = "restaurant.stolovi[(red-1) * restaurant.brojKolona + kolona -1].zauzet || !restaurant.stolovi[(red-1) * restaurant.brojKolona + kolona -1].dostupan" ng-model="restaurant.stolovi[(red-1) * restaurant.brojKolona + kolona -1].rezervisi" aria-label="Sto za pusace">
+            		Rezervisi
+          			</md-checkbox>
+          			<md-checkbox ng-disabled = "true" ng-model="restaurant.stolovi[(red-1) * restaurant.brojKolona + kolona -1].zauzet" aria-label="Sto za pusace">
+            		Sto je zauzet za izabrano vreme
+          			</md-checkbox>
+	                <md-input-container flex>
+            			<label>{{'BROJ_MESTA' | translate}}</label>
+            			<input ng-readonly = "true" required min = "1" name="brojKolona" ng-model="restaurant.stolovi[(red-1) * restaurant.brojKolona + kolona -1].brojStolova" type="number"></input>
+        			</md-input-container>
+        			<md-input-container flex>
+            			<label>{{'BROJ_STOLA' | translate}}</label>
+            			<input ng-readonly = "true" required min = "1" name="brojStola" ng-model="restaurant.stolovi[(red-1) * restaurant.brojKolona + kolona -1].redniBroj" type="number"></input>
+        			</md-input-container>
+        			<md-divider></md-divider>
+	               	</md-card-content>
+	            </md-card>
+	         </div>   
+            <md-card ng-if = "!restaurant.stolovi[(red-1) * restaurant.brojKolona + kolona -1].dostupan" flex = "75 75">
+	            	<md-card-content>
+	            		<h3></h3>
+	            	</md-card-content>
+	            </md-card>
+		    </td>
+		  </tr>
+		</table>
+		<md-button class = "md-primary md-raised" ng-click = "rezervisi()">Rezervisi </md-button>
+		
+	</div>
+	
+	<div ng-show = "successfulReservation">
+	<h1>REZERVACIJA JE USPESNO OBAVLJENA!!</h1>
+	<md-button class = "md-primary md-raised" ng-click = "novaRezervacija()">IDI NA NOVU REZERVACIJU</md-button>
+	</div>
+	<div ng-show = "nonSuccessfulReservation">
+	<h1>REZERVACIJA NIJE USPESNO OBAVLJENA, U MEDJUVREMENU SU ZAUZETI STOLOVI KOJE STE IZABRALI!!</h1>
+	<md-button class = "md-primary md-raised" ng-click = "novaRezervacija()">IDI NA NOVU REZERVACIJU</md-button>
+	</div>
+	</div>
+	<div ng-show= "isManager">
+	  <div ng-show = "setTableConfiguration">
+		<div layout = "column">
+		<h3>Kreiraj raspored stolova</h3></br>
+		<div layout = "column" >
+			<form name = "redoviIkolone">
+			<md-input-container flex>
+            	<label>{{'BROJ_REDOVA' | translate}}</label>
+            	<input required min="1" name="brojRedova" ng-model="brojRedova" type="number"></input>
+            	<div ng-messages="redoviIkolone.brojRedova.$error" ng-if="redoviIkolone.brojRedova.$dirty">
+                <div ng-message="required"> {{'ERROR_REQUIRED_FIELD' | translate}} </div>
+            </div>
+        	</md-input-container>
+        	<md-divider></md-divider>
+        	<md-input-container flex>
+            	<label>{{'BROJ_KOLONA' | translate}}</label>
+            	<input required min = "1" name="brojKolona" ng-model="brojKolona" type="number"></input>
+            	<div ng-messages="redoviIkolone.brojKolona.$error" ng-if="redoviIkolone.brojKolona.$dirty">
+                <div ng-message="required"> {{'ERROR_REQUIRED_FIELD' | translate}} </div>
+                </div>
+        	</md-input-container>
+			<md-divider></md-divider>
+			<md-button class = "md-primary md-raised" ng-disabled = "redoviIkolone.$invalid" ng-click="createTables($event)">
+			{{'KREIRAJ_STOLOVE'}}</md-button>		
+			</form>
+		   </div>
+		  </div>
+		</div>
+		<div ng-show="createdTables">
+		
+		<table>
+		  <caption>{{'STOLOVI' | translate}}</caption>
+		
+		  <tr ng-repeat="red in getNumber(restaurant.brojRedova)">
+		    <td ng-repeat="kolona in getNumber(restaurant.brojKolona)">
+			    <md-card ng-click = "tableDetails();">
+	                <md-card-content>
+	                <md-checkbox ng-model="restaurant.stolovi[(red-1) * restaurant.brojKolona + kolona -1].pusacki" aria-label="Sto za pusace">
+            		Sto za pusace
+          			</md-checkbox>
+          			<md-checkbox ng-model="restaurant.stolovi[(red-1) * restaurant.brojKolona + kolona -1].dostupan" aria-label="Sto za pusace">
+            		Dostupan
+          			</md-checkbox>
+	                <md-input-container flex>
+            			<label>{{'BROJ_MESTA' | translate}}</label>
+            			<input required min = "1" name="brojKolona" ng-model="restaurant.stolovi[(red-1) * restaurant.brojKolona + kolona -1].brojStolova" type="number"></input>
+        			</md-input-container>
+        			<md-input-container flex>
+            			<label>{{'BROJ_STOLA' | translate}}</label>
+            			<input required min = "1" name="brojKolona" ng-model="restaurant.stolovi[(red-1) * restaurant.brojKolona + kolona -1].redniBroj" type="number"></input>
+        			</md-input-container>
+	               	</md-card-content>
+	            </md-card>
+		    </td>
+		  </tr>
+		</table>
+		
+		
+		</div>
+	
+	
+	
+	</div>
+</div>

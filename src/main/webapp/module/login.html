@@ -7,15 +7,20 @@
 				ng-if="login.username.$dirty">
 				<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
 					translate}}</div>
+
+			</div>
+			<div>
+				<div ng-if="nePostojiKorisnik"><p style = "color:red; font-size:90%;">{{'NO_USERNAME' | translate}}</p></div>
 			</div>
 			</md-input-container>
 			<md-input-container flex> <label>{{'PASSWORD'
-				| translate}}</label> <input required name="password" ng-model="password">
+				| translate}}</label> <input required name="password" type="password" ng-model="password">
 			<div ng-messages="login.password.$error"
 				ng-if="login.password.$dirty">
 				<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
 					translate}}</div>
 			</div>
+			<div ng-if="neispravnaLoznika"><p style = "color:red; font-size:90%;">{{'PASSWORD_NOT_OK' | translate}}</p></div>
 			</md-input-container>
 			<md-button class="md-raised md-primary" ng-click="loginUser($event);"
 				ng-disabled="login.$invalid">{{'LOGIN' | translate}}</md-button>
@@ -46,6 +51,7 @@
 					translate}}</div>
 				<div ng-message="userExists">{{'USERNAME_EXISTS' | translate}}</div>
 			</div>
+			<div ng-if="userExists"><p style = "color:red; font-size:90%;">{{'USERNAME_EXISTS' | translate}}</p></div>
 			</md-input-container>
 
 			<md-input-container flex> <label>{{'PASSWORD'
@@ -76,7 +82,7 @@
 
 			<md-input-container flex> <label>{{'EMAIL_ADDRESS'
 				| translate}}</label> <input required name="email" ng-model="user.email"
-				type="text">
+				type="email">
 			<div ng-messages="register.email.$error"
 				ng-if="register.email.$dirty">
 				<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
@@ -98,6 +104,7 @@
 	
 	
 			<form name="activate" ng-show="activationForm">
+				<h3>Poslali smo vam email sa aktivacionim tokenom. Unesite ga ispod.</h3>
 				<md-input-container flex> <label>{{'USERNAME'
 					| translate}}</label> <input required name="username"
 					ng-model="activation.username">

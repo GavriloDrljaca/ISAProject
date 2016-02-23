@@ -23,6 +23,18 @@ app.service('userService', function($http){
 		},
 		getUserReservations: function(userId, onSuccess, onError){
 			$http.get('users/rezervacije/'+userId).then(onSuccess, onError);
+		},
+		updatePoseta: function(poseta, onSuccess, onError){
+			$http.put('users/poseta/', poseta).then(onSuccess, onError);
+		},
+		createPoseta: function(rezervacija, user, onSuccess, onError){
+			$http.post('users/poseta/'+ rezervacija.id + '/' + user.id).then(onSuccess, onError);
+		},
+		isFriend: function(userId, pFriendId, onSuccess, onError){
+			$http.get('users/isFriend/'+userId+'/'+pFriendId).then(onSuccess, onError);
+		},
+		createManager: function(manager, onSuccess, onError){
+			$http.post('users/createManager/', manager).then(onSuccess, onError);
 		}
 	}
 	

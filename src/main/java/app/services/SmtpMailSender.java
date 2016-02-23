@@ -19,6 +19,7 @@ public class SmtpMailSender {
 		
 		MimeMessageHelper helper;
 		
+		
 		helper = new MimeMessageHelper(message, true);
 		helper.setSubject(subject);
 		helper.setTo(to);

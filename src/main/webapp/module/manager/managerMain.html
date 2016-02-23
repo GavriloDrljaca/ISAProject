@@ -1,0 +1,79 @@
+<form name="formMan">
+<div ng-controller="managerMain" ng-init="init()" layout="row"  ng-cloak layout-padding>
+<md-content flex layout="column" class="frame">
+	<h2>{{'CREATE_MANAGER' | translate}}</h2>
+    <div layout="column" flex="70">
+    	<div ng-hide = "successCreated" layout = "column">
+        <md-input-container flex> <label>{{'NAME'
+				| translate}}</label> <input required name="name" ng-model="newManager.name">
+			<div ng-messages="formMan.name.$error" ng-if="formMan.name.$dirty">
+				<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
+					translate}}</div>
+			</div>
+			</md-input-container>
+			<md-input-container flex> <label>{{'USERNAME'
+				| translate}}</label> <input required name="username"
+				ng-model="newManager.username">
+			<div ng-messages="formMan.username.$error"
+				ng-if="formMan.username.$dirty">
+				<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
+					translate}}</div>
+				<div ng-message="userExists">{{'USERNAME_EXISTS' | translate}}</div>
+			</div>
+			</md-input-container>
+			<md-input-container flex> <label>{{'PASSWORD'
+				| translate}}</label> <input required name="password"
+				ng-model="newManager.password" type="text">
+			<div ng-messages="formMan.password.$error"
+				ng-if="formMan.password.$dirty">
+				<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
+					translate}}</div>
+			</div>
+			</md-input-container>
+			<md-input-container flex> <label>{{'RESTAURANT'
+				| translate}}</label> <md-select required ng-model="newManager.restoran"> <md-option
+				ng-repeat="restaurant in chooseRestaurants" value="{{restaurant.id}}">{{restaurant.naziv}}</md-option> </md-select> </md-input-container>
+			<md-input-container flex> <label>{{'GENDER'
+				| translate}}</label> <md-select ng-model="newManager.gender"> <md-option
+				ng-repeat="gender in genders" value="{{gender}}">{{gender
+			| translate}}</md-option> </md-select> </md-input-container>
+
+			<md-input-container flex> <label>{{'EMAIL_ADDRESS'
+				| translate}}</label> <input required name="email" ng-model="newManager.email"
+				type="email">
+			<div ng-messages="formMan.email.$error"
+				ng-if="formMan.email.$dirty">
+				<div ng-message="required">{{'ERROR_REQUIRED_FIELD' |
+					translate}}</div>
+			</div>
+			</md-input-container>
+			<md-input-container flex> <label>{{'ADDRESS'
+				| translate}}</label> <input name="address" ng-model="newManager.address"
+				type="text">
+			</md-input-container>
+			<md-input-container flex> <label>{{'PHONE_NUMBER'
+				| translate}}</label> <input name="phoneNumber" ng-model="newManager.phoneNumber"
+				type="text" phone-input>
+			</md-input-container>
+   
+    <div layout = "row">
+    <md-dialog-actions class =  "cancelSaveCv" >
+        <md-button class = "md-primary" ng-click="cancel()">{{'CANCEL' | translate}}</md-button>
+        <md-button class = "md-primary" ng-click="save()" ng-disabled="formMan.$invalid">{{'SAVE' | translate}}</md-button>
+    </md-dialog-actions>
+    </div>
+    </div>
+    <div ng-show = "successCreated" layout = "column" flex = "100 100">
+    	<h3>{{'USER_CREATED' | translate}}</h3>
+    	<md-button class = "md-primary" ng-click = "createNewManger()">{{'CREATE_NEW_MANAGER' | translate}}</md-button>
+    </div>
+
+    <div class="user-image" flow-init="{singleFile:true, testChunks:false}" flow-name="uploader.flow" flex="30">
+        <img ng-src="{{getImageUrl()}}" flow-img="$flow.files[0]" flow-btn/>
+    </div>
+ </div>
+ </md-content>
+</div>
+
+</form>
+

@@ -1,3 +1,29 @@
+<style>
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 42px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+</style>
 <div ng-controller="userMain" ng-init = "init" >
 <md-content flex layout="column" class="container">
     <!-- <md-toolbar class="md-primary md-hue-2 md-whiteframe-z1" layout="row" layout-align="space-around center">
@@ -12,16 +38,22 @@
                     <ng-include src="'module/user/userBasicInfo.html'"></ng-include>
                 </md-tab-body>
             </md-tab>
-            <md-tab id="userReservations">
+            <md-tab ng-if= "user.role == 'GOST'" id="userReservations">
                 <md-tab-label>{{'RESERVATIONS' | translate}}</md-tab-label>
                 <md-tab-body>
                     <ng-include src="'module/user/userReservations.html'"></ng-include>
                 </md-tab-body>
             </md-tab>
-            <md-tab id="userVisits">
+            <md-tab ng-if= "user.role == 'GOST'" id="userVisits">
                 <md-tab-label>{{'VISITS' | translate}}</md-tab-label>
                 <md-tab-body>
                     <ng-include src="'module/user/userVisits.html'"></ng-include>
+                </md-tab-body>
+            </md-tab>
+            <md-tab ng-if= "user.role == 'GOST'" id="userVisitations">
+                <md-tab-label>{{'VISITATIONS' | translate}}</md-tab-label>
+                <md-tab-body>
+                    <ng-include src="'module/user/userVisitations.html'"></ng-include>
                 </md-tab-body>
             </md-tab>
      </md-tabs>

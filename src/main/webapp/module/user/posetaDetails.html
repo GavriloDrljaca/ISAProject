@@ -1,0 +1,74 @@
+ <style>
+ md-dialog {
+       height:80%;
+       width:60%;
+       max-height:100%;
+       max-width: 100%;
+       position: relative;
+       top: 10;
+       left: 10;
+       right: 10;
+       down: 10;
+       border-radius: 5;
+   }
+   
+ md-dialog-actions.cancelSaveCv{
+ 	position: absolute;
+ 	bottom : 0;
+ 	right : 0;
+ }
+ </style>
+<md-dialog data-ng-init="init()">
+<md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{staJe}}</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+    <div class="md-dialog-content">
+        <div layout="column" flex >
+    		<md-input-container flex> <label>{{'RESTORAN_NAME'
+				| translate}}</label> <input  name="restoranName" ng-model="poseta.rezervacija.restoran.naziv" readonly>
+			</md-input-container>
+			<md-input-container flex> <label>{{'REZERVISAO'
+				| translate}}</label> <input  name="userName" ng-model="poseta.rezervacija.user.name" readonly>
+			</md-input-container>
+			<md-input-container flex> <label>{{'TRAJANJE'
+				| translate}}</label> <input  name="trajanje" ng-model="poseta.rezervacija.trajanje" readonly>
+			</md-input-container>
+			
+			<label>Vreme:</label> 
+  			<input type="datetime-local" ng-model = "poseta.rezervacija.datetime" readonly>
+  			
+  			<md-divider></md-divider>
+  		</div>
+  		<div layout = "column" ng-show="isPoseta">
+        	<h3>Oceni i ostavi komentar na posetu</h3>
+        	<md-divider></md-divider>
+        	<div layout>
+            <span flex="20" class="md-body-1"> <label>Ocena:</label> </span>
+            <md-slider offset=5 flex class="md-primary" md-discrete ng-model="poseta.ocena" step="1" min="0"
+                       max="5" aria-label="rating"></md-slider>
+                       
+        	</div>
+        	<md-input-container flex> <label>{{'KOMENTAR'
+				| translate}}</label> <textarea ng-model="poseta.komentar"></textarea>
+			</md-input-container>
+        </div>
+      	<div layout = "column" ng-show="!isPoseta">
+      		<md-divider></md-divider>
+        	<h3>Prihvati ili odbij pozivnicu</h3>        	
+        	<md-input-container flex> <label>{{'STATUS POSETE'
+					| translate}}</label> <md-select ng-model="poseta.status"> <md-option
+					ng-repeat="posetaSt in posetaStatusi" value="{{posetaSt}}">{{posetaSt
+					| translate}}</md-option> 
+				</md-select> </md-input-container>
+        </div>
+	</div> 
+    </md-dialog-content>
+    <md-dialog-actions >
+    	    <md-button class ="md-primary md-raised" ng-click="cancel()">{{'CANCEL' | translate}}</md-button>
+    	    <md-button class ="md-primary md-raised" ng-click="save()">{{'OK' | translate}}</md-button>
+	 </md-dialog-actions>
+</md-dialog>

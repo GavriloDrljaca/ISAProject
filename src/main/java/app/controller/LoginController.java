@@ -37,14 +37,13 @@ public class LoginController {
 	private SmtpMailSender smtpMailSender;
 	private SecureRandom random = new SecureRandom();
 
-	@RequestMapping(method = RequestMethod.POST, value = "/loginUser/{username}/{password}", produces = MediaType.ALL_VALUE)
+	@RequestMapping(method = RequestMethod.POST, value = "/loginUser/{username}/{password}", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity login(@PathVariable("username") String username, @PathVariable("password") String password) {
 
 		System.out.println("user:" + username);
 		User userTry = userRepository.findByUsername(username);
 
 		if (userTry == null) {
-
 			return new ResponseEntity("NO_USER", HttpStatus.BAD_REQUEST);
 		} else {
 			if (userTry.getPassword().equals(password)) {
@@ -57,7 +56,7 @@ public class LoginController {
 						authorities);
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 
-				return new ResponseEntity(userTry, HttpStatus.OK);
+				return new ResponseEntity(HttpStatus.OK);
 			} else {
 				return new ResponseEntity("BAD_PASSWORD", HttpStatus.BAD_REQUEST);
 			}
@@ -74,12 +73,15 @@ public class LoginController {
 		String token = new BigInteger(130, random).toString(32);
 		user.setActivated(false);
 		user.setRegistrationKey(token);
-		
+		String textMail = "<html><body>"
+				+ "Postovani, "+user.getName()
+				+", molimo vas da aktivirate vas nalog sa korisnickim imenom : "+user.getUsername()+
+				" i registracionim tokenom: "+user.getRegistrationKey() 
+				+"  .Pratite <a href = 'http://localhost:8080/#/login'>LINK</a> i izaberite opciju Aktiviraj nalog"
+				+ " .Hvala, Uzivajte u nasoj aplikaciji!"
+				+ "</body></html>";
 		try {
-			smtpMailSender.send(user.getEmail(), "ISA restoran activation link", "Dear, "+user.getName()
-			+", please activate your account with username: "+user.getUsername()+
-			" and token: "+user.getRegistrationKey() 
-			+" .Thank you for your cooperation.");			
+			smtpMailSender.send(user.getEmail(), "Jedite Sa Nama aktivacioni token", textMail);			
 			userRepository.save(user);
 			return new ResponseEntity(HttpStatus.CREATED);
 		} catch (MessagingException e) {

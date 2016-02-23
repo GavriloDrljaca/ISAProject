@@ -2,7 +2,6 @@ package app.model;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -59,6 +59,8 @@ public class User {
     
     private String email;
     
+    private String photoUrl;
+    
     @JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "user_friends", joinColumns = @JoinColumn(name="userID"), inverseJoinColumns = @JoinColumn(name = "friendId"))
@@ -71,6 +73,10 @@ public class User {
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Poseta> posete;
+    
+    @ManyToOne
+    @JoinColumn
+    private Restoran restoran;
     
     
 	public User() {
@@ -189,6 +195,22 @@ public class User {
 	public void setPosete(Set<Poseta> posete) {
 		this.posete = posete;
 	}
+	
+	public Restoran getRestoran() {
+		return restoran;
+	}
+
+	public void setRestoran(Restoran restoran) {
+		this.restoran = restoran;
+	}
+	
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
 
 	@Override
 	public int hashCode() {
@@ -197,15 +219,13 @@ public class User {
 		result = prime * result + (activated ? 1231 : 1237);
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		//result = prime * result + ((friends == null) ? 0 : friends.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
-		//result = prime * result + ((posete == null) ? 0 : posete.hashCode());
+		result = prime * result + ((photoUrl == null) ? 0 : photoUrl.hashCode());
 		result = prime * result + ((registrationKey == null) ? 0 : registrationKey.hashCode());
-		//result = prime * result + ((rezervacije == null) ? 0 : rezervacije.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -232,11 +252,6 @@ public class User {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (friends == null) {
-			if (other.friends != null)
-				return false;
-		} else if (!friends.equals(other.friends))
-			return false;
 		if (gender != other.gender)
 			return false;
 		if (id != other.id)
@@ -256,20 +271,15 @@ public class User {
 				return false;
 		} else if (!phoneNumber.equals(other.phoneNumber))
 			return false;
-		if (posete == null) {
-			if (other.posete != null)
+		if (photoUrl == null) {
+			if (other.photoUrl != null)
 				return false;
-		} else if (!posete.equals(other.posete))
+		} else if (!photoUrl.equals(other.photoUrl))
 			return false;
 		if (registrationKey == null) {
 			if (other.registrationKey != null)
 				return false;
 		} else if (!registrationKey.equals(other.registrationKey))
-			return false;
-		if (rezervacije == null) {
-			if (other.rezervacije != null)
-				return false;
-		} else if (!rezervacije.equals(other.rezervacije))
 			return false;
 		if (role != other.role)
 			return false;

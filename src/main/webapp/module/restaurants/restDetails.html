@@ -1,0 +1,49 @@
+<style>
+ md-dialog {
+       height:90%;
+       width:90%;
+       max-height:100%;
+       max-width: 100%;
+       position: relative;
+       top: 10;
+       left: 10;
+       right: 10;
+       down: 10;
+       border-radius: 5;
+   }
+   
+ md-dialog-actions.cancelSaveCv{
+ 	position: absolute;
+ 	bottom : 0;
+ 	right : 0;
+ }
+</style>
+<md-dialog data-ng-init="init()">
+    <md-dialog-content>
+        <md-tabs class="md-primary" md-stretch-tabs="always" md-dynamic-height md-border-bottom>
+            <md-tab id="basicInfo">
+                <md-tab-label>{{'INFO_RESTAURANT' | translate}}</md-tab-label>
+                <md-tab-body>
+                    <ng-include src="'module/restaurants/restaurantInfo.html'"></ng-include>
+                </md-tab-body>
+            </md-tab>
+
+            <md-tab id="menu">
+                <md-tab-label>{{'MENU' | translate}}</md-tab-label>
+                <md-tab-body>
+                    <ng-include src="'module/restaurants/restaurantMenu.html'"></ng-include>
+                </md-tab-body>
+            </md-tab>
+            <md-tab ng-if = "user.role ==='GOST' || isManager" id="reservation" >
+                <md-tab-label>{{'RESERVATION' | translate}}</md-tab-label>
+                <md-tab-body>
+                    <ng-include src="'module/restaurants/restaurantReservation.html'"></ng-include>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+    </md-dialog-content>
+    <md-dialog-actions class =  "cancelSaveCv" >
+        <md-button class = "md-primary md-raised" ng-click="cancel()">{{'CANCEL' | translate}}</md-button>
+        <md-button ng-hide = "user.role === 'GOST' || !(isManager || user.role =='MENADZER_SISTEMA')" class = "md-primary md-raised" ng-click="save()" ng-disabled="false">{{'SAVE' | translate}}</md-button>
+    </md-dialog-actions>
+</md-dialog>

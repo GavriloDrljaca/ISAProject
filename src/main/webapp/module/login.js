@@ -11,17 +11,24 @@ app.controller('login', function($scope, $state, $mdDialog, $translate, loginSer
 	$scope.showLoginForm = true;
 	$scope.passNotEqual = true;
 	$scope.activationForm = false;
+	$scope.userExists = false;
     $scope.loginUser = function(ev){
         loginService.login ($scope.username, $scope.password, function(response){
-        	$scope.user = response.data;
-            $state.transitionTo('main.user');
+        	loginService.getProfile(function(response){
+        		$scope.user = response.data;
+        		$state.transitionTo('main.user');
+        	});
+        	
+            
         }, function(response){
-        	if(response.data === "BAD_PASSWORD"){
+        	console.log(response);
+        	if(response.data == "BAD_PASSWORD"){
         		$scope.neispravnaLoznika = true;
-        	}else if(response.data === "NO_USER"){
+        	}else if(response.data == "NO_USER"){
+        		console.log("NO USERR")
         		$scope.neispravnaLoznika = true;
         		$scope.nePostojiKorisnik = true;
-        	}else if(response.data === "USER_NOT_ACTIVATED"){
+        	}else if(response.data == "USER_NOT_ACTIVATED"){
         		 $mdDialog.show(
    				      $mdDialog.alert()
    				        .parent(angular.element(document.querySelector('#popupContainer')))
@@ -67,9 +74,9 @@ app.controller('login', function($scope, $state, $mdDialog, $translate, loginSer
 	   }
 	   
 	   loginService.registerUser($scope.user, function(){
-		   alert("BRAVOOO");
+		   $scope.openActivationForm();
 	   },function(response){
-		   alert(response.data)
+		   $scope.userExists = true;
 	   });
    };
    

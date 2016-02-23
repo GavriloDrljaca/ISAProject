@@ -14,8 +14,9 @@
  <link rel='stylesheet' href='/sc-date-time/dist/sc-date-time.css'>
  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.js"></script>
-
-    <title>HRANI SE</title>
+	<script src="https://maps.googleapis.com/maps/api/js"
+         async defer></script>
+    <title>Jedite sa prijateljima</title>
 </head>
 
 <body data-ng-app="app">
@@ -40,6 +41,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
 <script src = "/sc-date-time/dist/sc-date-time.js"></script>
 <script src="app.js"></script>
+<script src="directive/filter/phoneInputFilter.js"></script>
 <script src="service/translationService.js"></script>
 <script src="service/userService.js"></script>
 <script src="service/restaurantService.js"></script>
@@ -51,6 +53,8 @@
 <script src="module/login.js"></script>
 <script src="module/main.js"></script>
 <script src="module/user/userMain.js"></script>
+<script src="module/user/posetaDetails.js"></script>
+<script src="module/user/rezervacijaDetails.js"></script>
 <script src="module/restaurants/restaurantsList.js"></script>
 <script src="module/restaurants/restaurantInfo.js"></script>
 <script src="module/restaurants/restaurantMenu.js"></script>
@@ -59,6 +63,8 @@
 <script src="module/friends/friendDetails.js"></script>
 <script src="module/friends/friendsMain.js"></script>
 <script src="module/friends/friendDetails.js"></script>
+<script src="module/manager/managerMain.js"></script>
+<script src="directive/phoneInput.js"></script>
 
 </body>
 </html>

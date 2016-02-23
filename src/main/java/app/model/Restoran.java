@@ -26,9 +26,13 @@ public class Restoran {
 	private String naziv;
 	
 	private String opis;
+	private String adresa;
 	
 	private int brojRedova;
 	private int brojKolona;
+	
+	private double longituda;
+	private double latituda;
 	
     @OneToMany(mappedBy = "restoran", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Jelo> jelovnik;
@@ -39,6 +43,10 @@ public class Restoran {
     
     @OneToMany(mappedBy = "restoran", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Sto> stolovi;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "restoran", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<User> managers;
     
 	public Restoran() {
 		super();
@@ -110,22 +118,61 @@ public class Restoran {
 	public void setBrojKolona(int brojKolona) {
 		this.brojKolona = brojKolona;
 	}
+	
+	public Set<User> getManagers() {
+		return managers;
+	}
+
+	public void setManagers(Set<User> managers) {
+		this.managers = managers;
+	}
+	
+	
+	public String getAdresa() {
+		return adresa;
+	}
+
+	public void setAdresa(String adresa) {
+		this.adresa = adresa;
+	}
+	
+
+	public double getLongituda() {
+		return longituda;
+	}
+
+	public void setLongituda(double longituda) {
+		this.longituda = longituda;
+	}
+
+	public double getLatituda() {
+		return latituda;
+	}
+
+	public void setLatituda(double latituda) {
+		this.latituda = latituda;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((adresa == null) ? 0 : adresa.hashCode());
+		result = prime * result + brojKolona;
+		result = prime * result + brojRedova;
 		result = prime * result + id;
 		result = prime * result + ((jelovnik == null) ? 0 : jelovnik.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(latituda);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(longituda);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((naziv == null) ? 0 : naziv.hashCode());
 		result = prime * result + ((opis == null) ? 0 : opis.hashCode());
 		result = prime * result + ((rezervacije == null) ? 0 : rezervacije.hashCode());
-		//result = prime * result + ((stolovi == null) ? 0 : stolovi.hashCode());
-		result = prime * result + ((brojKolona ==0) ? 0 : brojKolona);
-		result = prime * result + ((brojRedova ==0) ? 0 : brojRedova);
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -135,12 +182,25 @@ public class Restoran {
 		if (getClass() != obj.getClass())
 			return false;
 		Restoran other = (Restoran) obj;
+		if (adresa == null) {
+			if (other.adresa != null)
+				return false;
+		} else if (!adresa.equals(other.adresa))
+			return false;
+		if (brojKolona != other.brojKolona)
+			return false;
+		if (brojRedova != other.brojRedova)
+			return false;
 		if (id != other.id)
 			return false;
 		if (jelovnik == null) {
 			if (other.jelovnik != null)
 				return false;
 		} else if (!jelovnik.equals(other.jelovnik))
+			return false;
+		if (Double.doubleToLongBits(latituda) != Double.doubleToLongBits(other.latituda))
+			return false;
+		if (Double.doubleToLongBits(longituda) != Double.doubleToLongBits(other.longituda))
 			return false;
 		if (naziv == null) {
 			if (other.naziv != null)
@@ -157,17 +217,6 @@ public class Restoran {
 				return false;
 		} else if (!rezervacije.equals(other.rezervacije))
 			return false;
-		if (stolovi == null) {
-			if (other.stolovi != null)
-				return false;
-		} else if (!stolovi.equals(other.stolovi)){
-			return false;
-			
-		}else if(brojRedova!= other.brojRedova){
-			return false;
-		}else if(brojKolona != other.brojKolona)
-			return false;
-			
 		return true;
 	}
 	

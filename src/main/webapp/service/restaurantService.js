@@ -14,6 +14,15 @@ app.service('restaurantService', function($http){
 		},
 		createTables: function(restoranId,stolovi, onSuccess, onError){
 			$http.post("restaurants/createTables/"+ restoranId, stolovi).then(onSuccess, onError);
+		},
+		getOcenaRestorana: function(restoranId, userId, onSuccess, onError){
+			$http.get("restaurants/ocena/"+restoranId+"/"+userId).then(onSuccess, onError);
+		},
+		createRestaurant: function(restoran, onSuccess, onError){
+			$http.post("/restaurants/", restoran).then(onSuccess, onError);
+		},
+		getRestaurant: function(resId, onSuccess, onError){
+			$http.get("/restaurants/"+resId).then(onSuccess, onError);
 		}
 		
 		

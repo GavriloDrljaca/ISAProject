@@ -32,6 +32,11 @@ app.config(function($stateProvider, $urlRouterProvider, $translateProvider, $htt
             url: 'friends',
             templateUrl: 'module/friends/friendsMain.html',
             controller: 'friendsMain'
+        })
+        .state('main.createManager', {
+            url: 'createManager',
+            templateUrl: 'module/manager/managerMain.html',
+            controller: 'managerMain'
         });
 
     //Ne radi UTF-8 sa ovim

@@ -1,0 +1,36 @@
+<style>
+      #map {
+        width: 500px;
+        height: 400px;
+      }
+    </style>
+
+<div ng-controller = "restaurantInfo" ng-init = "init()" layout = "row" layout-padding>
+	<div layout = "column", flex = "70">
+		<md-input-container flex>
+            <label>{{'NAME' | translate}}</label>
+            <input ng-readonly = "user.role ==='GOST' || !(isManager || user.role =='MENADZER_SISTEMA') " required name="name" ng-model="restaurant.naziv">
+            <div ng-messages="restaurantInfo.naziv.$error" ng-if="restaurantInfo.naziv.$dirty">
+                <div ng-message="required"> {{'ERROR_REQUIRED_FIELD' | translate}} </div>
+            </div>
+        </md-input-container>
+        <md-input-container flex>
+            <label>{{'ABOUT' | translate}}</label>
+            <textarea ng-readonly = "user.role ==='GOST' || !(isManager || user.role =='MENADZER_SISTEMA')" name="about" ng-model="restaurant.opis"></textarea>
+        </md-input-container>
+		<md-input-container flex>
+            <label>{{'ADDRESS' | translate}}</label>
+            <textarea ng-readonly = "user.role ==='GOST' || !(isManager || user.role =='MENADZER_SISTEMA')" name="address" ng-model="restaurant.adresa"></textarea>
+        </md-input-container>
+        <md-input-container flex ng-if = "user.role==='MENADZER_SISTEMA' || isManager">
+            <label>{{'LONGITUDA' | translate}}</label>
+            <input type = "number" step = "0.00000001" name="longituda" ng-model="restaurant.longituda">
+        </md-input-container>
+        <md-input-container flex ng-if = "user.role==='MENADZER_SISTEMA' || isManager">
+            <label>{{'LATITUDA' | translate}}</label>
+            <input type = "number" step = "0.00000001"  name="latituda" ng-model="restaurant.latituda">
+        </md-input-container>
+	
+	</div>
+	<div id="map"></div>
+</div>

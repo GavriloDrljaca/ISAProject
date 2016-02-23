@@ -1,0 +1,49 @@
+ <style>
+ md-dialog {
+       height:70%;
+       width:70%;
+       max-height:100%;
+       max-width: 100%;
+       position: relative;
+       top: 10;
+       left: 10;
+       right: 10;
+       down: 10;
+       border-radius: 5;
+   }
+   
+ md-dialog-actions.cancelSaveCv{
+ 	position: absolute;
+ 	bottom : 0;
+ 	right : 0;
+ }
+ </style>
+<md-dialog data-ng-init="init()">
+    <md-dialog-content>
+        <md-tabs class="md-primary" md-stretch-tabs="always" md-dynamic-height md-border-bottom>
+            <md-tab id="basicInfo">
+                <md-tab-label>{{'BASIC_INFO' | translate}}</md-tab-label>
+                <md-tab-body>
+                    <ng-include src="'module/friends/friendsBasicInfo.html'"></ng-include>
+                </md-tab-body>
+            </md-tab>
+
+            <md-tab id="friends">
+                <md-tab-label>{{'FRIENDS' | translate}}</md-tab-label>
+                <md-tab-body>
+                    <ng-include src="'module/friends/friendsOfFriends.html'"></ng-include>
+                </md-tab-body>
+            </md-tab>
+            <md-tab id="friends" ng-disabled = "!isFriend">
+                <md-tab-label>{{'SEND_VISITATION' | translate}}</md-tab-label>
+                <md-tab-body>
+                    <ng-include src="'module/friends/friendsSendVisitation.html'"></ng-include>
+                </md-tab-body>
+            </md-tab>
+         </md-tabs>
+    </md-dialog-content>
+     <md-dialog-actions class =  "cancelSaveCv" >
+    	    <md-button class = "md-primary md-raised" ng-click="cancel()">{{'CANCEL' | translate}}</md-button>
+	    </md-dialog-actions>
+</md-dialog>
+        
